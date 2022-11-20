@@ -1,5 +1,19 @@
+import { use } from "react";
 import "../styles/globals.css";
+import { getBlogs } from "../utils/blogs";
+
+const getInitialBlogs = async () => {
+  const blogs = await getBlogs();
+  return blogs;
+};
 
 export default function Page() {
-  return <h2>Hello, Next.js!</h2>;
+  const blogs = use(getInitialBlogs());
+  return (
+    <div>
+      {blogs.map((post, index) => {
+        return <div key={index}>{post}</div>;
+      })}
+    </div>
+  );
 }
